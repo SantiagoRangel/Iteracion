@@ -44,6 +44,20 @@ public class Apartamento {
 	public void setUbicacion(String ubicacion) {
 		this.ubicacion = ubicacion;
 	}
+        
+          /**
+     * @return the idPersonaNatural
+     */
+    public Long getIdPersonaNatural() {
+        return idPersonaNatural;
+    }
+
+    /**
+     * @param idPersonaNatural the idPersonaNatural to set
+     */
+    public void setIdPersonaNatural(Long idPersonaNatural) {
+        this.idPersonaNatural = idPersonaNatural;
+    }
 
 	public String getDescripcion() {
 		return descripcion;

@@ -41,11 +41,13 @@ public class DAOTablaServicioHabitacion {
 	
 	public void registrarServicioHabitacion(ServicioHabitacion servHab) throws SQLException, Exception {
 
-		if(servHab.getTipo() == null || servHab.getDescripcion() == null || servHab.getIdServicioHabitacion() == null){
+		if(servHab.getTipo() == null || servHab.getDescripcion() == null 
+                        || servHab.getIdServicioHabitacion() == null){
 		  throw new Exception("esta incompleto");
 		}
 		
-		String sql = String.format("INSERT INTO %1$s.SERVICIOHABITACION (TIPO, DESCRIPCION, IDSERVICIOHABITACION) VALUES (%2$s, '%3$s', '%4$s')", 
+		String sql = String.format("INSERT INTO %1$s.SERVICIOHABITACION (TIPO, DESCRIPCION"
+                        + ", IDSERVICIOHABITACION) VALUES (%2$s, '%3$s', '%4$s')", 
 		  USUARIO, 
 		  servHab.getTipo(), 
 	          servHab.getDescripcion(),
@@ -63,7 +65,8 @@ public class DAOTablaServicioHabitacion {
             
 		ArrayList<ServicioHabitacion> servHabs = new ArrayList<ServicioHabitacion>();
 
-		String sql = String.format("SELECT * FROM %1$s.SERVICIOHABITACION WHERE ROWNUM <= 50", USUARIO);
+		String sql = String.format("SELECT * FROM %1$s.SERVICIOHABITACION WHERE ROWNUM <= 50"
+                        , USUARIO);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -80,7 +83,8 @@ public class DAOTablaServicioHabitacion {
             
 		ServicioHabitacion servHab = null;
 
-		String sql = String.format("SELECT * FROM %1$s.SERVICIOHABITACION WHERE IDSERVICIOHABITACION = %2$d", USUARIO, id); 
+		String sql = String.format("SELECT * FROM %1$s.SERVICIOHABITACION WHERE "
+                        + "IDSERVICIOHABITACION = %2$d", USUARIO, id); 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -93,11 +97,13 @@ public class DAOTablaServicioHabitacion {
 		return servHab;
 	}	
 	
-	public void updateServicioHabitacion(ServicioHabitacion servHab) throws SQLException, Exception {
+	public void updateServicioHabitacion(ServicioHabitacion servHab) throws SQLException
+                , Exception {
 
 		StringBuilder sql = new StringBuilder();
 		sql.append(String.format("UPDATE %s.SERVICIOHABITACION SET", USUARIO));
-		sql.append(String.format("TIPO = '%1$s' AND DESCRIPCION = '%2$s' AND IDSERVICIOHABITACION = '%3$s'", servHab.getTipo(),
+		sql.append(String.format("TIPO = '%1$s' AND DESCRIPCION = '%2$s' AND "
+                        + "IDSERVICIOHABITACION = '%3$s'", servHab.getTipo(),
 		servHab.getDescripcion(), servHab.getIdServicioHabitacion()));
 		
 		System.out.println(sql);
@@ -109,7 +115,9 @@ public class DAOTablaServicioHabitacion {
 
 	public void deleteServicioHabitacion(ServicioHabitacion servHab) throws SQLException, Exception {
 
-		String sql = String.format("DELETE FROM %1$s.SERVICIOHABITACION WHERE IDSERVICIOHABITACION = %2$d", USUARIO, servHab.getIdServicioHabitacion());
+		String sql = String.format("DELETE FROM %1$s.SERVICIOHABITACION "
+                        + "WHERE IDSERVICIOHABITACION = %2$d", USUARIO
+                        , servHab.getIdServicioHabitacion());
 
 		System.out.println(sql);
 		
@@ -118,13 +126,15 @@ public class DAOTablaServicioHabitacion {
 		prepStmt.executeQuery();
 	}
 	
-	public ServicioHabitacion convertResultSetToServicioHabitacion(ResultSet resultSet) throws SQLException {		
+	public ServicioHabitacion convertResultSetToServicioHabitacion(ResultSet resultSet) 
+                throws SQLException {		
 		
 		String descripcion = resultSet.getString("DESCRIPCION");
                 String tipo = resultSet.getString("TIPO");
 		Long idServicioHabitacion = resultSet.getLong("IDHABITACION");
 	
-		ServicioHabitacion servHab = new ServicioHabitacion(descripcion, tipo, idServicioHabitacion);
+		ServicioHabitacion servHab = new ServicioHabitacion(descripcion, tipo
+                        , idServicioHabitacion);
 		return servHab;
 	}	
 }

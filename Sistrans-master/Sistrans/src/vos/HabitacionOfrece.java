@@ -5,16 +5,16 @@ import org.codehaus.jackson.annotate.JsonProperty;
 public class HabitacionOfrece {  
     
 	@JsonProperty(value="idHabitacionOfrece")
-	private String idHabitacionOfrece;
+	private Long idHabitacionOfrece;
 	
 	@JsonProperty(value="idHabitacion")
-	private String idHabitacion;
+	private Long idHabitacion;
 	
 	@JsonProperty(value="idServicioHabitacion")
 	private Long idServicioHabitacion;	
 	
-	public HabitacionOfrece(@JsonProperty(value="idHabitacionOfrece")String idHabitacionOfrece,
-                @JsonProperty(value="idHabitacion") String idHabitacion,
+	public HabitacionOfrece(@JsonProperty(value="idHabitacionOfrece")Long idHabitacionOfrece,
+                @JsonProperty(value="idHabitacion") Long idHabitacion,
                 @JsonProperty(value="idServicioHabitacion") Long idServicioHabitacion) 
         {
 		super();
@@ -26,28 +26,28 @@ public class HabitacionOfrece {
           /**
      * @return the idHabitacionOfrece
      */
-    public String getIdHabitacionOfrece() {
+    public Long getIdHabitacionOfrece() {
         return idHabitacionOfrece;
     }
 
     /**
      * @param idHabitacionOfrece the idHabitacionOfrece to set
      */
-    public void setIdHabitacionOfrece(String idHabitacionOfrece) {
+    public void setIdHabitacionOfrece(Long idHabitacionOfrece) {
         this.idHabitacionOfrece = idHabitacionOfrece;
     }
 
     /**
      * @return the idHabitacion
      */
-    public String getIdHabitacion() {
+    public Long getIdHabitacion() {
         return idHabitacion;
     }
 
     /**
      * @param idHabitacion the idHabitacion to set
      */
-    public void setIdHabitacion(String idHabitacion) {
+    public void setIdHabitacion(Long idHabitacion) {
         this.idHabitacion = idHabitacion;
     }
 

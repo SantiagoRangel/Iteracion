@@ -6,13 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import vos.Habitacion;
+import vos.Apartamento;
 
 /**
  * Clase DAO que se conecta la base de datos usando JDBC para resolver los requerimientos de la 
  * aplicación
  * @author Grupo A - 16*/
-public class DAOTablaHabitacion {
+public class DAOTablaApartamento {
 
 	
 	public final static String USUARIO = "ISIS2304A241810";
@@ -30,7 +30,7 @@ public class DAOTablaHabitacion {
 	 * Metodo constructor que crea DAOIngrediente
 	 * <b>post: </b> Crea la instancia del DAO e inicializa el Arraylist de recursos
 	 */
-	public DAOTablaHabitacion() {
+	public DAOTablaApartamento() {
 		recursos = new ArrayList<Object>();
 	}
 
@@ -58,31 +58,30 @@ public class DAOTablaHabitacion {
 		this.conn = con;
 	}
 
-	public void registrarHabitacion(Habitacion habitacion) throws SQLException, Exception
+	public void registrarApartamento(Apartamento apartamento) throws SQLException, Exception
 	{
-
-		if(habitacion.getDescripcion() == null || habitacion.getIdHabitacion() == null
-                        || habitacion.getIdOperador() == null || habitacion.getPrecio() == null 
-                        || habitacion.getTamano()== null || habitacion.getUbicacion()== null )
+		if(apartamento.getDescripcion() == null || apartamento.getIdApartamento() == null
+                        || apartamento.getIdPersonaNatural() == null || apartamento.getPrecio() == null 
+                        || apartamento.getTamano()== null || apartamento.getUbicacion()== null )
 		{
 			throw new Exception("hay campos nulos");
 		}
 		
-		String sql = String.format("INSERT INTO %1$s.HABITACION (DESCRIPCION, IDHABITACION"
-                        + ", IDOPERADOR, PRECIO, TAMANO, UBICACION) "
+		String sql = String.format("INSERT INTO %1$s.APARTAMENTO (DESCRIPCION, IDAPARTAMENTO"
+                        + ", IDPERSONANATURAL, PRECIO, TAMANO, UBICACION) "
                         + "VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s')", 
 				USUARIO, 
-				habitacion.getDescripcion(), 
-				habitacion.getIdHabitacion(),
-				habitacion.getIdOperador(), 
-				habitacion.getPrecio(),
-				habitacion.getTamano(),
-				habitacion.getUbicacion());
+				apartamento.getDescripcion(), 
+				apartamento.getIdApartamento(),
+				apartamento.getIdPersonaNatural(), 
+				apartamento.getPrecio(),
+				apartamento.getTamano(),
+				apartamento.getUbicacion());
 		System.out.println(sql);
 
-		if (findHabitacionById(habitacion.getIdHabitacion())!= null) {
+		if (findApartamentoById(apartamento.getIdApartamento())!= null) {
 	
-			throw new Exception("ya existe la habitacion en oferta");
+			throw new Exception("ya existe la apartamento en oferta");
 
 			}
 		else {
@@ -92,28 +91,28 @@ public class DAOTablaHabitacion {
 		     }	
         }
         
-	public ArrayList<Habitacion> getHabitaciones() throws SQLException 
+	public ArrayList<Apartamento> getApartamentoes() throws SQLException 
         {
-                ArrayList<Habitacion> habitaciones = new ArrayList<Habitacion>();
+                ArrayList<Apartamento> apartamentoes = new ArrayList<Apartamento>();
                 
-		String sql = String.format("SELECT * FROM %1$s.HABITACION WHERE ROWNUM <= 50", USUARIO);
+		String sql = String.format("SELECT * FROM %1$s.APARTAMENTO WHERE ROWNUM <= 50", USUARIO);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
 
 		while (rs.next()) {
-			habitaciones.add(convertResultSetToHabitacion(rs));
+			apartamentoes.add(convertResultSetToApartamento(rs));
 		}
-		return habitaciones;
+		return apartamentoes;
 	}
 	
 	
-	public Habitacion findHabitacionById(Long id) throws SQLException, Exception 
+	public Apartamento findApartamentoById(Long id) throws SQLException, Exception 
 	{
-		Habitacion hab = null;
+		Apartamento hab = null;
 
-		String sql = String.format("SELECT * FROM %1$s.HABITACION WHERE IDHABITACION = %2$d"
+		String sql = String.format("SELECT * FROM %1$s.APARTAMENTO WHERE IDAPARTAMENTO = %2$d"
                         , USUARIO, id); 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -121,21 +120,21 @@ public class DAOTablaHabitacion {
 		ResultSet rs = prepStmt.executeQuery();
 
 		if(rs.next()) {
-			hab = convertResultSetToHabitacion(rs);
+			hab = convertResultSetToApartamento(rs);
 		}
 
 		return hab;
 	}	
 	
-	public void updateHabitacion(Habitacion habitacion) throws SQLException, Exception {
+	public void updateApartamento(Apartamento apartamento) throws SQLException, Exception {
 
 		StringBuilder sql = new StringBuilder();
-		sql.append(String.format("UPDATE %s.HABITACION SET ", USUARIO));
+		sql.append(String.format("UPDATE %s.APARTAMENTO SET ", USUARIO));
 		sql.append(String.format("UBICACION = '%1$s' AND DESCRIPCION = '%2$s' "
-                        + "AND PRECIO = '%3$s' AND IDHABITACION = '%4$s' AND TAMANO = '%5$s' "
-                        + "AND IDOPERADOR = '%6$s' ", habitacion.getUbicacion(),
-		habitacion.getDescripcion(), habitacion.getPrecio(),habitacion.getIdHabitacion()
-                        ,habitacion.getTamano(), habitacion.getIdOperador() ));
+                        + "AND PRECIO = '%3$s' AND IDAPARTAMENTO = '%4$s' AND TAMANO = '%5$s' "
+                        + "AND IDPERSONANATURAL = '%6$s' ", apartamento.getUbicacion(),
+		apartamento.getDescripcion(), apartamento.getPrecio(),apartamento.getIdApartamento()
+                        ,apartamento.getTamano(), apartamento.getIdPersonaNatural() ));
 		
 		System.out.println(sql);
 		
@@ -144,10 +143,10 @@ public class DAOTablaHabitacion {
 		prepStmt.executeQuery();
 	}
 
-	public void deleteHabitacion(Habitacion habitacion) throws SQLException, Exception {
+	public void deleteApartamento(Apartamento apartamento) throws SQLException, Exception {
 
-		String sql = String.format("DELETE FROM %1$s.HABITACION WHERE IDHABITACION = %2$d"
-                        , USUARIO, habitacion.getIdHabitacion());
+		String sql = String.format("DELETE FROM %1$s.APARTAMENTO WHERE IDAPARTAMENTO = %2$d"
+                        , USUARIO, apartamento.getIdApartamento());
 
 		System.out.println(sql);
 		
@@ -156,17 +155,17 @@ public class DAOTablaHabitacion {
 		prepStmt.executeQuery();
 	}
 	
-	public Habitacion convertResultSetToHabitacion(ResultSet resultSet) throws SQLException {		
+	public Apartamento convertResultSetToApartamento(ResultSet resultSet) throws SQLException {		
 		
 		String descripcion = resultSet.getString("DESCRIPCION");
-		Long idHabitacion = resultSet.getLong("IDHABITACION");
-		Long idOperador = resultSet.getLong("IDOPERADOR");
+		Long idApartamento = resultSet.getLong("IDAPARTAMENTO");
+		Long idPersonaNatural = resultSet.getLong("IDPERSONANATURAL");
 		Long precio = resultSet.getLong("PRECIO");
 		Long tamano = resultSet.getLong("TAMANO");
 		String ubicacion = resultSet.getString("UBICACION");	
 	
-		Habitacion hab = new Habitacion(ubicacion, descripcion, precio, idHabitacion, tamano
-                        , idOperador);
+		Apartamento hab = new Apartamento(ubicacion, descripcion, precio, idApartamento, tamano
+                        , idPersonaNatural);
 		return hab;
 	}	
 }
