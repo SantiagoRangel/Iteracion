@@ -131,7 +131,7 @@ public class DAOTablaHotelOfrece {
 		
 		Long idServicioHotel = resultSet.getLong("IDSERVICIOHOTEL");
                 Long idHotel = resultSet.getLong("IDHOTEL");
-		Long idHotelOfrece = resultSet.getLong("IDHABITACION");
+		Long idHotelOfrece = resultSet.getLong("IDHOTELOFRECE");
 	
 		HotelOfrece servHab = new HotelOfrece(idHotelOfrece, idHotel
                         , idServicioHotel);
