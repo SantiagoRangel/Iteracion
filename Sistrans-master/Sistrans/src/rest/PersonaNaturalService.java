@@ -14,14 +14,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tm.AlohaTM;
-import vos.Operador;
+import vos.PersonaNatural;
 
+@Path( "personasNaturales" )
+public class PersonaNaturalService {
 
-@Path("operadores")
-public class OperadoresService {
-
-	
-	
 	@Context
 	private ServletContext context;
 
@@ -34,51 +31,51 @@ public class OperadoresService {
 	private String getPath() {
 		return context.getRealPath("WEB-INF/ConnectionData");
 	}
+	
 	private String doBuenMessaje(){
-		return "{ \"Bien\": \" borró el operador\"}";
+		return "{ \"Bien\": \" borró el personasNaturales \"}";
 	}
 	
 
+	
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getOperadores() {
+	public Response getPersonasNaturales() {
 		
 		try {
 			AlohaTM tm = new AlohaTM(getPath());
 			
-			List<Operador> operadores;
+			List<PersonaNatural> personasNaturaless;
 			//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
-			operadores = tm.getAllOperadores();
-			return Response.status(200).entity(operadores).build();
+			personasNaturaless = tm.getAllPersonasNaturales();
+			return Response.status(200).entity(personasNaturaless).build();
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 	}
-
-	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response registrarOperador(Operador operador) {
+	public Response registrarPersonaNatural(PersonaNatural personasNaturales) {
 		AlohaTM tm = new AlohaTM(getPath());
 		try {
-			tm.registrarOperador(operador);
+			tm.registrarPersonaNatural(personasNaturales);
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(operador).build();
+		return Response.status(200).entity(personasNaturales).build();
 	}
 	
 	
 	@GET
 	@Path( "{id: \\d+}" )
 	@Produces( { MediaType.APPLICATION_JSON } )
-	public Response getOperadorById( @PathParam( "id" ) Long id )
+	public Response getPersonaNaturalById( @PathParam( "id" ) Long id )
 	{
 		try{
 			AlohaTM tm = new AlohaTM( getPath( ) );
 			
-			Operador apto = tm.getOperadorById( id );
+			PersonaNatural apto = tm.getPersonaNaturalById( id );
 			return Response.status( 200 ).entity( apto ).build( );			
 		}
 		catch( Exception e )
@@ -89,14 +86,13 @@ public class OperadoresService {
 	
 	@DELETE
 	@Path( "{id: \\d+}" )
-	public Response borrarOperador( @PathParam( "id" ) Long id ) {
+	public Response borrarPersonaNatural( @PathParam( "id" ) Long id ) {
 		AlohaTM tm = new AlohaTM(getPath());
 		try {
-			tm.borrarOperador(id);
+			tm.borrarPersonaNatural(id);
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 		return Response.status(200).entity(doBuenMessaje()).build();
 	}
-
 }

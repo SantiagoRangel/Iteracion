@@ -18,7 +18,7 @@ public class Hostal extends Operador {
 
 	public Hostal(@JsonProperty(value="usuario") String usuario,
 			@JsonProperty(value="contrasena")String contrasena,
-                        @JsonProperty(value="idUsuario") Long idUsuario,
+                        @JsonProperty(value="idHostal") Long idUsuario,
 			@JsonProperty(value="horaAtencion")String horaAtencion,
                         @JsonProperty(value="nombre") String nombre,
 			@JsonProperty(value="ubicacion")String ubicacion, 

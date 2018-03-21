@@ -57,13 +57,13 @@ public class DAOTablaOperador {
 	public void registrarOperador(Operador operador) throws SQLException, Exception
 	{
 
-		if( operador.getContrasena()== null || operador.getIdUsuario() == null || operador.getUsuario()== null)
-		{
-			throw new Exception("hay campos nulos");
-		}
+//		if( operador.getContrasena()== null || operador.getIdUsuario() == null || operador.getUsuario()== null)
+//		{
+//			throw new Exception("hay campos nulos");
+//		}
 		
 		String sql = String.format("INSERT INTO %1$s.OPERADOR (CONTRASENA,"
-				+ " IDOPERADOR, USUARIO) VALUES (%2$s, '%3$s', '%4$s')", 
+				+ " IDOPERADOR, USUARIO) VALUES ('%2$s', %3$s, '%4$s')", 
 				USUARIO, 
 				operador.getContrasena(),
 				operador.getIdUsuario(),
@@ -86,7 +86,7 @@ System.out.println(sql);
 	
 	
 	public ArrayList<Operador> getOperadores() throws SQLException, Exception {
-		ArrayList<Operador> habitaciones = new ArrayList<Operador>();
+		ArrayList<Operador> operadores = new ArrayList<Operador>();
 
 		//Aclaracion: Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
 		String sql = String.format("SELECT * FROM %1$s.OPERADOR WHERE ROWNUM <= 50", USUARIO);
@@ -96,9 +96,9 @@ System.out.println(sql);
 		ResultSet rs = prepStmt.executeQuery();
 
 		while (rs.next()) {
-			habitaciones.add(convertResultSetToOperador(rs));
+			operadores.add(convertResultSetToOperador(rs));
 		}
-		return habitaciones;
+		return operadores;
 	}
 	
 	
@@ -151,9 +151,9 @@ System.out.println(sql);
 //		prepStmt.executeQuery();
 //	}
 
-	public void deleteOperador(Operador operador) throws SQLException, Exception {
+	public void deleteOperador(Long id) throws SQLException, Exception {
 
-		String sql = String.format("DELETE FROM %1$s.OPERADOR WHERE IDOPERADOR = %2$d", USUARIO, operador.getIdUsuario());
+		String sql = String.format("DELETE FROM %1$s.OPERADOR WHERE IDOPERADOR = %2$d", USUARIO,id);
 
 		System.out.println(sql);
 		
@@ -167,12 +167,12 @@ System.out.println(sql);
 		
 		
 		String contrasena = resultSet.getString("CONTRASENA");
-		Long idUsuario = resultSet.getLong("IDUSUARIO");
+		Long idOperador = resultSet.getLong("IDOPERADOR");
 		String usuario = resultSet.getString("USUARIO");
 		
 	
 	
-		Operador op = new Operador(usuario, contrasena, idUsuario);
+		Operador op = new Operador(usuario, contrasena, idOperador);
 		return op;
 	}
 	

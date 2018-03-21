@@ -55,14 +55,14 @@ public class DAOTablaViviendaUniveristaria {
 
 	public void registrarViviendaUniversitaria(ViviendaUniversitaria viviendaUniversitaria) throws SQLException, Exception {
 
-		if( viviendaUniversitaria.getContrasena()== null || viviendaUniversitaria.getIdUsuario() == null || viviendaUniversitaria.getUsuario()== null|| viviendaUniversitaria.getNombre()== null|| viviendaUniversitaria.getDescripcion()== null
-				|| viviendaUniversitaria.getNombre()== null|| viviendaUniversitaria.getHoraAtencion()== null)
-		{
-			throw new Exception("hay campos nulos");
-		}
+//		if( viviendaUniversitaria.getContrasena()== null || viviendaUniversitaria.getIdUsuario() == null || viviendaUniversitaria.getUsuario()== null|| viviendaUniversitaria.getNombre()== null|| viviendaUniversitaria.getDescripcion()== null
+//				|| viviendaUniversitaria.getNombre()== null|| viviendaUniversitaria.getHoraAtencion()== null)
+//		{
+//			throw new Exception("hay campos nulos");
+//		}
 		
 		String sql = String.format("INSERT INTO %1$s.HOTEL (CONTRASENA,"
-				+ " IDUSUARIO, USARIO, NOMBRE, HORAATENCION, DESCRIPCION) VALUES (%2$s, '%3$s', '%4$s','%5$s','%6$s','%7$s')", 
+				+ " IDVIVIENDAUNIVERSITARIA, USUARIO, NOMBRE, HORAATENCION, DESCRIPCION) VALUES ('%2$s', %3$s, '%4$s','%5$s','%6$s','%7$s')", 
 				USUARIO, 
 				viviendaUniversitaria.getContrasena(),
 				viviendaUniversitaria.getIdUsuario(),
@@ -71,7 +71,7 @@ public class DAOTablaViviendaUniveristaria {
 				viviendaUniversitaria.getHoraAtencion(),
 				viviendaUniversitaria.getDescripcion());
 		String sql1= String.format("INSERT INTO %1$s.OPERADOR (CONTRASENA,"
-				+ " IDUSUARIO, USARIO) VALUES (%2$s, '%3$s', '%4$s')", 
+				+ " IDUSUARIO, USUARIO) VALUES ('%2$s', %3$s, '%4$s')", 
 				USUARIO, 
 				viviendaUniversitaria.getContrasena(),
 				viviendaUniversitaria.getIdUsuario(),
@@ -163,9 +163,9 @@ System.out.println(sql);
 //		prepStmt.executeQuery();
 //	}
 
-	public void deleteViviendaUniversitaria(ViviendaUniversitaria viviendaUniversitaria) throws SQLException, Exception {
+	public void deleteViviendaUniversitaria(Long id) throws SQLException, Exception {
 
-		String sql = String.format("DELETE FROM %1$s.VIVIENDAUNIVERSITARIA WHERE IDVIVIENDAUNIVERSITARIA = %2$d", USUARIO, viviendaUniversitaria.getIdUsuario());
+		String sql = String.format("DELETE FROM %1$s.VIVIENDAUNIVERSITARIA WHERE IDVIVIENDAUNIVERSITARIA = %2$d", USUARIO, id);
 
 		System.out.println(sql);
 		
@@ -178,7 +178,7 @@ System.out.println(sql);
 		
 		
 		String contrasena = resultSet.getString("CONTRASENA");
-		Long idUsuario = resultSet.getLong("IDUSUARIO");
+		Long idUsuario = resultSet.getLong("IDVIVIENDAUNIVERSITARIA");
 		String usuario = resultSet.getString("USUARIO");
 		String nombre = resultSet.getString("NOMBRE");
 		String horaAtencion = resultSet.getString("HORAATENCION");

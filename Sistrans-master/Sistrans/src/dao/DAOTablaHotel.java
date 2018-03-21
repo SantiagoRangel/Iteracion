@@ -55,14 +55,14 @@ public class DAOTablaHotel {
 
 	public void registrarHotel(Hotel hotel) throws SQLException, Exception {
 
-		if( hotel.getContrasena()== null || hotel.getIdUsuario() == null || hotel.getUsuario()== null|| hotel.getNombre()== null|| hotel.getDescripcion()== null
-				|| hotel.getNombre()== null|| hotel.getUbicacion()== null)
-		{
-			throw new Exception("hay campos nulos");
-		}
+//		if( hotel.getContrasena()== null || hotel.getIdUsuario() == null || hotel.getUsuario()== null|| hotel.getNombre()== null|| hotel.getDescripcion()== null
+//				|| hotel.getNombre()== null|| hotel.getUbicacion()== null)
+//		{
+//			throw new Exception("hay campos nulos");
+//		}
 		
 		String sql = String.format("INSERT INTO %1$s.HOTEL (CONTRASENA,"
-				+ " IDUSUARIO, USARIO, NOMBRE, UBICACION, DESCRIPCION) VALUES (%2$s, '%3$s', '%4$s','%5$s','%6$s','%7$s')", 
+				+ " IDHOTEL, USUARIO, NOMBRE, UBICACION, DESCRIPCION) VALUES ('%2$s', %3$s, '%4$s','%5$s','%6$s','%7$s')", 
 				USUARIO, 
 				hotel.getContrasena(),
 				hotel.getIdUsuario(),
@@ -71,7 +71,7 @@ public class DAOTablaHotel {
 				hotel.getUbicacion(),
 				hotel.getDescripcion());
 		String sql1= String.format("INSERT INTO %1$s.OPERADOR (CONTRASENA,"
-				+ " IDUSUARIO, USARIO) VALUES (%2$s, '%3$s', '%4$s')", 
+				+ " IDUSUARIO, USUARIO) VALUES ('%2$s', %3$s, '%4$s')", 
 				USUARIO, 
 				hotel.getContrasena(),
 				hotel.getIdUsuario(),
@@ -163,9 +163,9 @@ System.out.println(sql);
 //		prepStmt.executeQuery();
 //	}
 
-	public void deleteHotel(Hotel hotel) throws SQLException, Exception {
+	public void deleteHotel(Long id) throws SQLException, Exception {
 
-		String sql = String.format("DELETE FROM %1$s.HOTEL WHERE IDHOTEL = %2$d", USUARIO, hotel.getIdUsuario());
+		String sql = String.format("DELETE FROM %1$s.HOTEL WHERE IDHOTEL = %2$d", USUARIO, id);
 
 		System.out.println(sql);
 		
@@ -178,7 +178,7 @@ System.out.println(sql);
 		
 		
 		String contrasena = resultSet.getString("CONTRASENA");
-		Long idUsuario = resultSet.getLong("IDUSUARIO");
+		Long idUsuario = resultSet.getLong("IDHOTEL");
 		String usuario = resultSet.getString("USUARIO");
 		String nombre = resultSet.getString("NOMBRE");
 		String ubicacion = resultSet.getString("UBICACION");

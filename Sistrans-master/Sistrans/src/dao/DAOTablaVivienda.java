@@ -61,21 +61,21 @@ public class DAOTablaVivienda {
 	public void registrarVivienda(Vivienda vivienda) throws SQLException, Exception
 	{
 
-		if(vivienda.getDescripcion() == null || vivienda.getIdVivienda() == null || vivienda.getIdPersonaNatural() == null || 
-				vivienda.getPrecio() == null || vivienda.getTamano()== null || vivienda.getUbicacion()== null ||
-                        vivienda.getMenaje() == null || vivienda.getNumeroHabitaciones()==null)
-		{
-			throw new Exception("hay campos nulos");
-		}
+//		if(vivienda.getDescripcion() == null || vivienda.getIdVivienda() == null || vivienda.getIdPersonaNatural() == null || 
+//				vivienda.getPrecio() == null || vivienda.getTamano()== null || vivienda.getUbicacion()== null ||
+//                        vivienda.getMenaje() == null || vivienda.getNumeroHabitaciones()==null)
+//		{
+//			throw new Exception("hay campos nulos");
+//		}
 		
 		String sql = String.format("INSERT INTO %1$s.VIVIENDA (DESCRIPCION, UBICACION, MENAJE, NUMEROHABITACIONES, IDPERSONANATURAL, PRECIO, TAMANO, IDVIVIENDA) "
-                                         + "VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s', '%8$s', '%9$s')", 
+                                         + "VALUES ('%2$s', '%3$s', '%4$s', %5$s, %6$s, %7$s, %8$s, %9$s)", 
 				USUARIO, 
 				vivienda.getDescripcion(), 
 				vivienda.getUbicacion(),
 				vivienda.getMenaje(), 
-                                vivienda.getNumeroHabitaciones(), 
-                                vivienda.getIdPersonaNatural(), 
+                vivienda.getNumeroHabitaciones(), 
+                vivienda.getIdPersonaNatural(), 
 				vivienda.getPrecio(),
 				vivienda.getTamano(),
 				vivienda.getIdVivienda());
@@ -83,7 +83,7 @@ public class DAOTablaVivienda {
 
 		if (findViviendaById(vivienda.getIdVivienda())!= null) {
 	
-			throw new Exception("ya existe la vivienda en oferta");
+			throw new Exception("ya existe la vivienda");
 
 			}
 		else {
@@ -144,9 +144,9 @@ public class DAOTablaVivienda {
 		prepStmt.executeQuery();
 	}
 
-	public void deleteVivienda(Vivienda vivienda) throws SQLException, Exception {
+	public void deleteVivienda(Long id) throws SQLException, Exception {
 
-		String sql = String.format("DELETE FROM %1$s.VIVIENDA WHERE IDVIVIENDA = %2$d", USUARIO, vivienda.getIdVivienda());
+		String sql = String.format("DELETE FROM %1$s.VIVIENDA WHERE IDVIVIENDA = %2$d", USUARIO, id);
 
 		System.out.println(sql);
 		

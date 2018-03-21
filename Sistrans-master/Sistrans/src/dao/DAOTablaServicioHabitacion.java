@@ -41,13 +41,13 @@ public class DAOTablaServicioHabitacion {
 	
 	public void registrarServicioHabitacion(ServicioHabitacion servHab) throws SQLException, Exception {
 
-		if(servHab.getTipo() == null || servHab.getDescripcion() == null 
-                        || servHab.getIdServicioHabitacion() == null){
-		  throw new Exception("esta incompleto");
-		}
+//		if(servHab.getTipo() == null || servHab.getDescripcion() == null 
+//                        || servHab.getIdServicioHabitacion() == null){
+//		  throw new Exception("esta incompleto");
+//		}
 		
 		String sql = String.format("INSERT INTO %1$s.SERVICIOHABITACION (TIPO, DESCRIPCION"
-                        + ", IDSERVICIOHABITACION) VALUES (%2$s, '%3$s', '%4$s')", 
+                        + ", IDSERVICIOHABITACION) VALUES ('%2$s', '%3$s', %4$s)", 
 		  USUARIO, 
 		  servHab.getTipo(), 
 	          servHab.getDescripcion(),
@@ -113,11 +113,11 @@ public class DAOTablaServicioHabitacion {
 		prepStmt.executeQuery();
 	}
 
-	public void deleteServicioHabitacion(ServicioHabitacion servHab) throws SQLException, Exception {
+	public void deleteServicioHabitacion(Long id) throws SQLException, Exception {
 
 		String sql = String.format("DELETE FROM %1$s.SERVICIOHABITACION "
                         + "WHERE IDSERVICIOHABITACION = %2$d", USUARIO
-                        , servHab.getIdServicioHabitacion());
+                        , id);
 
 		System.out.println(sql);
 		

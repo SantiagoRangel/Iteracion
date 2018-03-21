@@ -57,15 +57,15 @@ public class DAOTablaHostal {
 
 	public void registrarHostal(Hostal hostal) throws SQLException, Exception {
 
-		if( hostal.getContrasena()== null || hostal.getIdUsuario() == null || hostal.getUsuario()== null
-				|| hostal.getNombre()== null|| hostal.getDescripcion()== null
-				|| hostal.getNombre()== null|| hostal.getUbicacion()== null|| hostal.getHoraAtencion()== null)
-		{
-			throw new Exception("hay campos nulos");
-		}
+//		if( hostal.getContrasena()== null || hostal.getIdUsuario() == null || hostal.getUsuario()== null
+//				|| hostal.getNombre()== null|| hostal.getDescripcion()== null
+//				|| hostal.getNombre()== null|| hostal.getUbicacion()== null|| hostal.getHoraAtencion()== null)
+//		{
+//			throw new Exception("hay campos nulos");
+//		}
 		
 		String sql = String.format("INSERT INTO %1$s.HOSTAL (CONTRASENA,"
-				+ " IDUSUARIO, USARIO, NOMBRE, UBICACION, DESCRIPCION,HORAATENCION) VALUES (%2$s, '%3$s', '%4$s','%5$s','%6$s','%7$s','%8$s')", 
+				+ " IDHOSTAL, USUARIO, NOMBRE, UBICACION, DESCRIPCION,HORAATENCION) VALUES ('%2$s', %3$s, '%4$s','%5$s','%6$s','%7$s','%8$s')", 
 				USUARIO, 
 				hostal.getContrasena(),
 				hostal.getIdUsuario(),
@@ -75,7 +75,7 @@ public class DAOTablaHostal {
 				hostal.getDescripcion(),
 				hostal.getHoraAtencion());
 		String sql1= String.format("INSERT INTO %1$s.OPERADOR (CONTRASENA,"
-				+ " IDUSUARIO, USARIO) VALUES (%2$s, '%3$s', '%4$s')", 
+				+ " IDUSUARIO, USUARIO) VALUES ('%2$s', %3$s, '%4$s')", 
 				USUARIO, 
 				hostal.getContrasena(),
 				hostal.getIdUsuario(),
@@ -166,9 +166,9 @@ System.out.println(sql);
 //		prepStmt.executeQuery();
 //	}
 
-	public void deleteHostal(Hostal hostal) throws SQLException, Exception {
+	public void deleteHostal(Long id) throws SQLException, Exception {
 
-		String sql = String.format("DELETE FROM %1$s.HOSTAL WHERE IDHOSTAL = %2$d", USUARIO, hostal.getIdUsuario());
+		String sql = String.format("DELETE FROM %1$s.HOSTAL WHERE IDHOSTAL = %2$d", USUARIO,id);
 
 		System.out.println(sql);
 		
@@ -181,7 +181,7 @@ System.out.println(sql);
 		
 		
 		String contrasena = resultSet.getString("CONTRASENA");
-		Long idUsuario = resultSet.getLong("IDUSUARIO");
+		Long idUsuario = resultSet.getLong("IDHOSTAL");
 		String usuario = resultSet.getString("USUARIO");
 		String nombre = resultSet.getString("NOMBRE");
 		String ubicacion = resultSet.getString("UBICACION");

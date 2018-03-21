@@ -35,6 +35,7 @@ public class Apartamento {
 		this.precio = precio;
 		this.idApartamento = idApartamento;
 		this.tamano = tamano;
+		this.idPersonaNatural = idPersonaNatural;
 	}
 
 	public String getUbicacion() {

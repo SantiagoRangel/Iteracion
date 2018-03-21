@@ -61,14 +61,14 @@ public class DAOTablaServicioHotel {
 	public void registrarServicioHotel(ServicioHotel servicioHotel) throws SQLException, Exception
 	{
 
-		if(servicioHotel.getDescripcion() == null || servicioHotel.getIdServicioHotel() == null
-                        || servicioHotel.getTipo() == null)
-		{
-			throw new Exception("hay campos nulos");
-		}
-		
+//		if(servicioHotel.getDescripcion() == null || servicioHotel.getIdServicioHotel() == null
+//                        || servicioHotel.getTipo() == null)
+//		{
+//			throw new Exception("hay campos nulos");
+//		}
+//		
 		String sql = String.format("INSERT INTO %1$s.SERVICIOHOTEL (DESCRIPCION, IDSERVICIOHOTEL"
-                        + ", TIPO) VALUES (%2$s, '%3$s', '%4$s')", 
+                        + ", TIPO) VALUES ('%2$s', %3$s, '%4$s')", 
 				USUARIO, 
 				servicioHotel.getDescripcion(), 
 				servicioHotel.getIdServicioHotel(),
@@ -137,10 +137,10 @@ public class DAOTablaServicioHotel {
 		prepStmt.executeQuery();
 	}
 
-	public void deleteServicioHotel(ServicioHotel servicioHotel) throws SQLException, Exception {
+	public void deleteServicioHotel(Long id) throws SQLException, Exception {
 
 		String sql = String.format("DELETE FROM %1$s.SERVICIOHOTEL WHERE IDSERVICIOHOTEL = %2$d"
-                        , USUARIO, servicioHotel.getIdServicioHotel());
+                        , USUARIO, id);
 
 		System.out.println(sql);
 		

@@ -41,24 +41,21 @@ public class DAOTablaHabitacionOfrece {
 	
 	public void registrarHabitacionOfrece(HabitacionOfrece servHab) throws SQLException, Exception {
 
-		if(servHab.getIdServicioHabitacion() == null || servHab.getIdHabitacion() == null 
-                        || servHab.getIdHabitacionOfrece() == null){
+		if(servHab.getIdServicioHabitacion() == null || servHab.getIdHabitacion() == null){
 		  throw new Exception("esta incompleto");
 		}
 		
-		String sql = String.format("INSERT INTO %1$s.HABITACIONOFRECE (IDHABITACIONOFRECE, IDHABITACION"
-                        + ", IDSERVICIOHABITACION) VALUES (%2$s, '%3$s', '%4$s')", 
+		String sql = String.format("INSERT INTO %1$s.HABITACIONOFRECE (IDHABITACION"
+                        + ", IDSERVICIOHABITACION) VALUES (%2$s, '%3$s')", 
 		  USUARIO, 
 		  servHab.getIdHabitacion(), 
-	          servHab.getIdServicioHabitacion(),
-		  servHab.getIdHabitacionOfrece());
+	          servHab.getIdServicioHabitacion());
                 System.out.println(sql);
 
                 PreparedStatement prepStmt = conn.prepareStatement(sql);
                 recursos.add(prepStmt);
                 prepStmt.executeQuery();
-	}
-	
+	}	
 	
 	
 	public ArrayList<HabitacionOfrece> getServiciosHabitaciones() throws SQLException, Exception {
@@ -79,12 +76,12 @@ public class DAOTablaHabitacionOfrece {
 	}
 	
 	
-	public HabitacionOfrece findHabitacionOfreceById(Long id) throws SQLException, Exception{
+	public HabitacionOfrece findHabitacionOfrece(Long idHab, Long idServ) throws SQLException, Exception{
             
 		HabitacionOfrece servHab = null;
 
 		String sql = String.format("SELECT * FROM %1$s.HABITACIONOFRECE WHERE "
-                        + "IDHABITACIONOFRECE = %2$d", USUARIO, id); 
+                        + "IDHABITACION = %2$d AND IDSERVICIOHABITACION = %3$d", USUARIO, idHab, idServ); 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -116,8 +113,8 @@ public class DAOTablaHabitacionOfrece {
 	public void deleteHabitacionOfrece(HabitacionOfrece servHab) throws SQLException, Exception {
 
 		String sql = String.format("DELETE FROM %1$s.HABITACIONOFRECE "
-                        + "WHERE IDHABITACIONOFRECE = %2$d", USUARIO
-                        , servHab.getIdHabitacionOfrece());
+                        + "WHERE IDHABITACION = %2$d AND IDSERVICIOHABITACION = %3$d", USUARIO
+                        , servHab.getIdHabitacion(), servHab.getIdServicioHabitacion());
 
 		System.out.println(sql);
 		
@@ -131,9 +128,8 @@ public class DAOTablaHabitacionOfrece {
 		
 		Long idServicioHabitacion = resultSet.getLong("IDSERVICIOHABITACION");
                 Long idHabitacion = resultSet.getLong("IDHABITACION");
-		Long idHabitacionOfrece = resultSet.getLong("IDHABITACION");
 	
-		HabitacionOfrece servHab = new HabitacionOfrece(idHabitacionOfrece, idHabitacion
+		HabitacionOfrece servHab = new HabitacionOfrece(idHabitacion
                         , idServicioHabitacion);
 		return servHab;
 	}	

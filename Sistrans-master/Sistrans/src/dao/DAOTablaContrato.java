@@ -60,15 +60,15 @@ public class DAOTablaContrato {
 
 	public void registrarContrato(Contrato contrato) throws SQLException, Exception {
 
-		if( contrato.getDescripcion()== null || contrato.getCostoTotal() == null || contrato.getFechaFinal()== null
-				|| contrato.getFechaInicial()== null|| contrato.getIdContrato()== null|| contrato.getIdOperador()== null|| contrato.getIdCliente()== null)
-		{
-			throw new Exception("hay campos en null que no pueden ser null");
-		}
+//		if( contrato.getDescripcion()== null || contrato.getCostoTotal() == null || contrato.getFechaFinal()== null
+//				|| contrato.getFechaInicial()== null|| contrato.getIdContrato()== null|| contrato.getIdOperador()== null|| contrato.getIdCliente()== null)
+//		{
+//			throw new Exception("hay campos en null que no pueden ser null");
+//		}
 		
 		String sql = String.format("INSERT INTO %1$s.CONTRATO (NOCHES,"
 				+ " COSTOTOTAL, DESCRIPCION, FEHCAINICIAL, FECHAFINAL, IDCONTRATO, "
-				+ "IDCLIENTE ,IDOPERADOR, IDAPARTAMENTO, IDHABITACION, IDVIVIENDA) VALUES (%2$s, '%3$s', '%4$s',%5$s', '%6$s', '%7$s', '%8$s', '%9$s', '%10$s', '%11$s', '%12$s')", 
+				+ "IDCLIENTE ,IDOPERADOR, IDAPARTAMENTO, IDHABITACION, IDVIVIENDA) VALUES (%2$s, %3$s, '%4$s',%5$s', '%6$s', %7$s, %8$s, %9$s, %10$s, %11$s, %12$s)", 
 				USUARIO, 
 				contrato.getNoches(),
 				contrato.getCostoTotal(),
@@ -149,9 +149,9 @@ System.out.println(sql);
 //		prepStmt.executeQuery();
 //	}
 
-	public void deleteContrato(Contrato contrato) throws SQLException, Exception {
+	public void deleteContrato(Long id) throws SQLException, Exception {
 
-		String sql = String.format("DELETE FROM %1$s.CONTRATO WHERE IDCONTRATO = %2$d", USUARIO, contrato.getIdContrato());
+		String sql = String.format("DELETE FROM %1$s.CONTRATO WHERE IDCONTRATO = %2$d", USUARIO, id);
 
 		System.out.println(sql);
 		

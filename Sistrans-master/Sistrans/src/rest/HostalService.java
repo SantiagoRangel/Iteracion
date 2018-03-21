@@ -14,14 +14,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tm.AlohaTM;
-import vos.Operador;
+import vos.Hostal;
 
 
-@Path("operadores")
-public class OperadoresService {
+@Path( "hostales" )
+public class HostalService {
 
-	
-	
 	@Context
 	private ServletContext context;
 
@@ -34,51 +32,51 @@ public class OperadoresService {
 	private String getPath() {
 		return context.getRealPath("WEB-INF/ConnectionData");
 	}
+	
 	private String doBuenMessaje(){
-		return "{ \"Bien\": \" borró el operador\"}";
+		return "{ \"Bien\": \" borró el hostal \"}";
 	}
 	
 
+	
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getOperadores() {
+	public Response getHostales() {
 		
 		try {
 			AlohaTM tm = new AlohaTM(getPath());
 			
-			List<Operador> operadores;
+			List<Hostal> apartamentos;
 			//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
-			operadores = tm.getAllOperadores();
-			return Response.status(200).entity(operadores).build();
+			apartamentos = tm.getAllHostales();
+			return Response.status(200).entity(apartamentos).build();
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 	}
-
-	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response registrarOperador(Operador operador) {
+	public Response registrarHostal(Hostal hostal) {
 		AlohaTM tm = new AlohaTM(getPath());
 		try {
-			tm.registrarOperador(operador);
+			tm.registrarHostal(hostal);
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(operador).build();
+		return Response.status(200).entity(hostal).build();
 	}
 	
 	
 	@GET
 	@Path( "{id: \\d+}" )
 	@Produces( { MediaType.APPLICATION_JSON } )
-	public Response getOperadorById( @PathParam( "id" ) Long id )
+	public Response getHostalById( @PathParam( "id" ) Long id )
 	{
 		try{
 			AlohaTM tm = new AlohaTM( getPath( ) );
 			
-			Operador apto = tm.getOperadorById( id );
+			Hostal apto = tm.getHostalById( id );
 			return Response.status( 200 ).entity( apto ).build( );			
 		}
 		catch( Exception e )
@@ -89,10 +87,10 @@ public class OperadoresService {
 	
 	@DELETE
 	@Path( "{id: \\d+}" )
-	public Response borrarOperador( @PathParam( "id" ) Long id ) {
+	public Response borrarHostal( @PathParam( "id" ) Long id ) {
 		AlohaTM tm = new AlohaTM(getPath());
 		try {
-			tm.borrarOperador(id);
+			tm.borrarHostal(id);
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}

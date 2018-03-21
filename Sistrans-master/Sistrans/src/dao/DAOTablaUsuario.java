@@ -57,13 +57,13 @@ public class DAOTablaUsuario {
 
 	public void registrarUsuario(Usuario usuario) throws SQLException, Exception {
 
-		if( usuario.getContrasena()== null || usuario.getIdUsuario() == null || usuario.getUsuario()== null)
-		{
-			throw new Exception("hay campos nulos");
-		}
-		
+//		if( usuario.getContrasena()== null || usuario.getIdUsuario() == null || usuario.getUsuario()== null)
+//		{
+//			throw new Exception("hay campos nulos");
+//		}
+//		
 		String sql = String.format("INSERT INTO %1$s.USUARIO (CONTRASENA,"
-				+ " IDUSUARIO, USARIO) VALUES (%2$s, '%3$s', '%4$s')", 
+				+ " IDUSUARIO, USUARIO) VALUES ('%2$s', %3$s, '%4$s')", 
 				USUARIO, 
 				usuario.getContrasena(),
 				usuario.getIdUsuario(),
@@ -150,9 +150,9 @@ System.out.println(sql);
 //		prepStmt.executeQuery();
 //	}
 
-	public void deleteUsuario(Usuario usuario) throws SQLException, Exception {
+	public void deleteUsuario(Long id) throws SQLException, Exception {
 
-		String sql = String.format("DELETE FROM %1$s.USUARIO WHERE IDUSUARIO = %2$d", USUARIO, usuario.getIdUsuario());
+		String sql = String.format("DELETE FROM %1$s.USUARIO WHERE IDUSUARIO = %2$d", USUARIO, id);
 
 		System.out.println(sql);
 		

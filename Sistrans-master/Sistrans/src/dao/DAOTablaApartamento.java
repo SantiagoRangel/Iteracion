@@ -60,16 +60,16 @@ public class DAOTablaApartamento {
 
 	public void registrarApartamento(Apartamento apartamento) throws SQLException, Exception
 	{
-		if(apartamento.getDescripcion() == null || apartamento.getIdApartamento() == null
-                        || apartamento.getIdPersonaNatural() == null || apartamento.getPrecio() == null 
-                        || apartamento.getTamano()== null || apartamento.getUbicacion()== null )
-		{
-			throw new Exception("hay campos nulos");
-		}
+//		if(apartamento.getDescripcion() == null || apartamento.getIdApartamento() == null
+//                        || apartamento.getIdPersonaNatural() == null || apartamento.getPrecio() == null 
+//                        || apartamento.getTamano()== null || apartamento.getUbicacion()== null )
+//		{
+//			throw new Exception("hay campos nulos");
+//		}
 		
 		String sql = String.format("INSERT INTO %1$s.APARTAMENTO (DESCRIPCION, IDAPARTAMENTO"
                         + ", IDPERSONANATURAL, PRECIO, TAMANO, UBICACION) "
-                        + "VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s')", 
+                        + "VALUES ('%2$s', %3$s, %4$s, %5$s, %6$s, '%7$s')", 
 				USUARIO, 
 				apartamento.getDescripcion(), 
 				apartamento.getIdApartamento(),
@@ -91,7 +91,7 @@ public class DAOTablaApartamento {
 		     }	
         }
         
-	public ArrayList<Apartamento> getApartamentoes() throws SQLException 
+	public ArrayList<Apartamento> getApartamentos() throws SQLException 
         {
                 ArrayList<Apartamento> apartamentoes = new ArrayList<Apartamento>();
                 
@@ -143,10 +143,10 @@ public class DAOTablaApartamento {
 		prepStmt.executeQuery();
 	}
 
-	public void deleteApartamento(Apartamento apartamento) throws SQLException, Exception {
+	public void deleteApartamento(Long id) throws SQLException, Exception {
 
 		String sql = String.format("DELETE FROM %1$s.APARTAMENTO WHERE IDAPARTAMENTO = %2$d"
-                        , USUARIO, apartamento.getIdApartamento());
+                        , USUARIO, id);
 
 		System.out.println(sql);
 		

@@ -57,14 +57,14 @@ public class DAOTablaPersonaNatural {
 
 	public void registrarPersonaNatural(PersonaNatural personaNatural) throws SQLException, Exception {
 
-		if( personaNatural.getContrasena()== null || personaNatural.getIdUsuario() == null || personaNatural.getUsuario()== null
-				|| personaNatural.getNombre()== null|| personaNatural.getUniandino() == null)
-		{
-			throw new Exception("hay campos nulos");
-		}
+//		if( personaNatural.getContrasena()== null || personaNatural.getIdUsuario() == null || personaNatural.getUsuario()== null
+//				|| personaNatural.getNombre()== null|| personaNatural.getUniandino() == null)
+//		{
+//			throw new Exception("hay campos nulos");
+//		}
 		
 		String sql = String.format("INSERT INTO %1$s.USUARIO (CONTRASENA,"
-				+ " IDUSUARIO, USARIO, NOMBRE, UNIANDINO) VALUES (%2$s, '%3$s', '%4$s',%5$s', '%6$s')", 
+				+ " IDPERSONANATURAL, USUARIO, NOMBRE, UNIANDINO) VALUES ('%2$s', %3$s, '%4$s',%5$s', %6$s)", 
 				USUARIO, 
 				personaNatural.getContrasena(),
 				personaNatural.getIdUsuario(),
@@ -72,7 +72,7 @@ public class DAOTablaPersonaNatural {
 				personaNatural.getNombre(),
 				personaNatural.getUniandino());
 		String sql1= String.format("INSERT INTO %1$s.OPERADOR (CONTRASENA,"
-				+ " IDUSUARIO, USARIO) VALUES (%2$s, '%3$s', '%4$s')", 
+				+ " IDUSUARIO, USUARIO) VALUES ('%2$s', %3$s, '%4$s')", 
 				USUARIO, 
 				personaNatural.getContrasena(),
 				personaNatural.getIdUsuario(),
@@ -164,9 +164,9 @@ System.out.println(sql);
 //		prepStmt.executeQuery();
 //	}
 
-	public void deletePersonaNatural(PersonaNatural personaNatural) throws SQLException, Exception {
+	public void deletePersonaNatural(Long id) throws SQLException, Exception {
 
-		String sql = String.format("DELETE FROM %1$s.PERSONANATURAL WHERE IDPERSONANATURAL = %2$d", USUARIO, personaNatural.getIdUsuario());
+		String sql = String.format("DELETE FROM %1$s.PERSONANATURAL WHERE IDPERSONANATURAL = %2$d", USUARIO, id);
 
 		System.out.println(sql);
 		
@@ -179,7 +179,7 @@ System.out.println(sql);
 		
 		
 		String contrasena = resultSet.getString("CONTRASENA");
-		Long idUsuario = resultSet.getLong("IDUSUARIO");
+		Long idUsuario = resultSet.getLong("IDPERSONANATURAL");
 		String usuario = resultSet.getString("USUARIO");
 		String nombre = resultSet.getString("NOMBRE");
 		Long uniandino = resultSet.getLong("UNIANDINO");

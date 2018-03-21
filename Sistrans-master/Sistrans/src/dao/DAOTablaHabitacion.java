@@ -70,7 +70,7 @@ public class DAOTablaHabitacion {
 		
 		String sql = String.format("INSERT INTO %1$s.HABITACION (DESCRIPCION, IDHABITACION"
                         + ", IDOPERADOR, PRECIO, TAMANO, UBICACION) "
-                        + "VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s')", 
+                        + "VALUES ('%2$s', %3$s, %4$s, %5$s, %6$s, '%7$s')", 
 				USUARIO, 
 				habitacion.getDescripcion(), 
 				habitacion.getIdHabitacion(),
@@ -80,16 +80,16 @@ public class DAOTablaHabitacion {
 				habitacion.getUbicacion());
 		System.out.println(sql);
 
-		if (findHabitacionById(habitacion.getIdHabitacion())!= null) {
-	
-			throw new Exception("ya existe la habitacion en oferta");
-
-			}
-		else {
+//		if (findHabitacionById(habitacion.getIdHabitacion())!= null) {
+//	
+//			throw new Exception("ya existe la habitacion en oferta");
+//
+//			}
+//		else {
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
 			recursos.add(prepStmt);
 			prepStmt.executeQuery();
-		     }	
+//		     }	
         }
         
 	public ArrayList<Habitacion> getHabitaciones() throws SQLException 
@@ -144,10 +144,10 @@ public class DAOTablaHabitacion {
 		prepStmt.executeQuery();
 	}
 
-	public void deleteHabitacion(Habitacion habitacion) throws SQLException, Exception {
+	public void deleteHabitacion(Long id) throws SQLException, Exception {
 
 		String sql = String.format("DELETE FROM %1$s.HABITACION WHERE IDHABITACION = %2$d"
-                        , USUARIO, habitacion.getIdHabitacion());
+                        , USUARIO,id);
 
 		System.out.println(sql);
 		
